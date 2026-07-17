@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S. Aravind | Java Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+        
+        :root {
+            --lime: #bef264;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+
+        .accent-text {
+            color: #bef264;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #bef264;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgb(190 242 100 / 0.25);
+        }
+
+        .section-header {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(to right, #bef264, transparent);
+            bottom: -6px;
+            left: 0;
+        }
+
+        .skill-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(to right, #bef264, #84cc16);
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: #bef264;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white overflow-x-hidden">
+    <script>
+    function downloadResume() {
+        const link = document.createElement('a');
+        link.href = 'Aravind-Resume.pdf';           // ← Make sure this name matches your file
+        link.download = 'Aravind-Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
+    <!-- Progress Bar -->
+    <div id="progress-bar" class="scroll-progress w-0"></div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-2xl bg-lime-400 flex items-center justify-center text-black font-bold text-2xl">SA</div>
+                <span class="heading-font text-2xl font-semibold tracking-tight">Aravind</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#home" class="nav-link text-gray-300 hover:text-white">Home</a>
+                <a href="#about" class="nav-link text-gray-300 hover:text-white">About</a>
+                <a href="#skills" class="nav-link text-gray-300 hover:text-white">Skills</a>
+                <a href="#experience" class="nav-link text-gray-300 hover:text-white">Experience</a>
+                <a href="#projects" class="nav-link text-gray-300 hover:text-white">Projects</a>
+                <a href="#education" class="nav-link text-gray-300 hover:text-white">Education</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/SaiAravind23/Student-Seminar-Management-System-" target="_blank" ... 
+                   class="p-3 rounded-2xl glass hover:bg-white/10 text-lime-400">
+                    <i class="fa-brands fa-github text-xl"></i>
+                </a>
+                <a href="Aravind-Resume.pdf" onclick="downloadResume()" 
+                   class="px-6 py-3 bg-white text-black rounded-2xl font-semibold flex items-center gap-2 hover:bg-lime-400">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Resume</span>
+                </a>
+                <button onclick="toggleMobileMenu()" class="md:hidden p-3 rounded-2xl glass">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/10 py-6">
+            <div class="flex flex-col px-6 gap-6 text-lg">
+                <a href="#home" onclick="toggleMobileMenu()" class="hover:text-lime-400">Home</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="hover:text-lime-400">About</a>
+                <a href="#skills" onclick="toggleMobileMenu()" class="hover:text-lime-400">Skills</a>
+                <a href="#experience" onclick="toggleMobileMenu()" class="hover:text-lime-400">Experience</a>
+                <a href="#projects" onclick="toggleMobileMenu()" class="hover:text-lime-400">Projects</a>
+                <a href="#education" onclick="toggleMobileMenu()" class="hover:text-lime-400">Education</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="hover:text-lime-400">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="hero-bg min-h-screen flex items-center pt-20">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-2 bg-white/5 px-5 py-2 rounded-3xl text-sm">
+                    <div class="w-2 h-2 bg-lime-400 rounded-full animate-pulse"></div>
+                    Open to opportunities
+                </div>
+                
+                <h1 class="heading-font text-6xl md:text-7xl font-bold leading-none tracking-tighter">
+                    Hi, I'm <span class="accent-text">S. Aravind</span>
+                </h1>
+                
+                <p class="text-3xl text-gray-400">MCA Graduate &amp; Java Developer</p>
+                
+                <p class="max-w-md text-gray-300 text-lg">
+                    Passionate Java Developer with one year of professional experience as an MIS Officer. 
+                    Building efficient, user-friendly software solutions.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <a href="#projects" 
+                       class="px-8 py-4 bg-lime-400 hover:bg-lime-300 text-black font-semibold rounded-3xl flex items-center gap-3 text-lg">
+                        View My Projects
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" 
+                       class="px-8 py-4 border border-white/30 hover:border-lime-400 rounded-3xl font-medium text-lg">
+                        Get In Touch
+                    </a>
+                </div>
+                
+                <div class="flex gap-8 pt-6">
+                    <div>
+                        <div class="text-4xl font-bold accent-text">1</div>
+                        <div class="text-sm text-gray-400">Year Experience</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold accent-text">1+</div>
+                        <div class="text-sm text-gray-400">Projects</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold accent-text">5</div>
+                        <div class="text-sm text-gray-400">Certifications</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center">
+                <div class="relative">
+                    <div class="w-80 h-80 md:w-96 md:h-96 rounded-[4rem] overflow-hidden border-8 border-white/10 shadow-2xl">
+                        <img src="image.png" alt="S. Aravind" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <!-- Floating badge -->
+                    <div class="absolute -bottom-4 -right-4 glass px-6 py-4 rounded-3xl flex items-center gap-3 shadow-xl">
+                        <div class="text-4xl">👨‍💻</div>
+                        <div>
+                            <div class="font-semibold">Available for</div>
+                            <div class="text-lime-400 text-sm">Full-time / Internship</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 flex flex-col items-center">
+            <div class="text-xs tracking-widest mb-2 opacity-60">SCROLL TO EXPLORE</div>
+            <i class="fa-solid fa-chevron-down text-2xl animate-bounce"></i>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-16 items-center">
+                <div class="md:col-span-5">
+                    <h2 class="section-header heading-font text-5xl font-bold mb-8">About Me</h2>
+                    <div class="glass p-8 rounded-3xl space-y-6 text-gray-300">
+                        <p class="text-lg">
+                            Hello! I'm S. Aravind, an MCA graduate with one year of professional experience as an MIS Officer.
+                        </p>
+                        <p>
+                            I have developed expertise in data management, reporting, process coordination, and database management 
+                            while building a strong technical foundation in Java, SQL, HTML, CSS, and MySQL.
+                        </p>
+                        <p>
+                            I enjoy solving real-world problems through technology and continuously expanding my knowledge in software development. 
+                            I'm a quick learner, an effective team player, and passionate about creating innovative solutions.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-7">
+                    <div class="glass p-8 rounded-3xl">
+                        <h3 class="text-xl font-semibold mb-6 accent-text">Personal Information</h3>
+                        <div class="grid grid-cols-2 gap-y-8">
+                            <div>
+                                <div class="text-gray-400 text-sm">Name</div>
+                                <div class="font-medium">S. Aravind</div>
+                            </div>
+                            <div>
+                                <div class="text-gray-400 text-sm">Location</div>
+                                <div class="font-medium">Palamaner, Andhra Pradesh</div>
+                            </div>
+                            <div>
+                                <div class="text-gray-400 text-sm">Email</div>
+                                <a href="mailto:saiaravind22srinivasulu@gmail.com" class="font-medium hover:text-lime-400">saiaravind22srinivasulu@gmail.com</a>
+                            </div>
+                            <div>
+                                <div class="text-gray-400 text-sm">Phone</div>
+                                <a href="tel:+919000156529" class="font-medium hover:text-lime-400">+91 9000156529</a>
+                            </div>
+                            <div>
+                                <div class="text-gray-400 text-sm">Languages</div>
+                                <div class="font-medium">English, Telugu</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 glass p-8 rounded-3xl">
+                        <h3 class="text-xl font-semibold mb-6">Career Objective</h3>
+                        <p class="text-gray-300">
+                            To obtain a challenging position as a Software Engineer where I can utilize my technical skills in Java, SQL, HTML, CSS, 
+                            and problem-solving abilities to develop innovative software solutions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="py-24 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-header heading-font text-5xl font-bold">Technical Skills</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Programming -->
+                <div class="glass p-8 rounded-3xl card-hover">
+                    <h3 class="font-semibold text-xl mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-code text-lime-400"></i>
+                        Programming Languages
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Java</span>
+                                <span class="text-lime-400">95%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress w-[95%]"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>SQL</span>
+                                <span class="text-lime-400">90%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress w-[90%]"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Python (Basics)</span>
+                                <span class="text-lime-400">60%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress w-[60%]"></div></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Web & DB -->
+                <div class="glass p-8 rounded-3xl card-hover">
+                    <h3 class="font-semibold text-xl mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-globe text-lime-400"></i>
+                        Web &amp; Database
+                    </h3>
+                    <div class="grid grid-cols-2 gap-6 text-center">
+                        <div class="space-y-4">
+                            <div class="text-4xl">🌐</div>
+                            <div>
+                                <div class="font-medium">HTML5</div>
+                                <div class="text-xs text-gray-400">Expert</div>
+                            </div>
+                            <div>
+                                <div class="font-medium">CSS3</div>
+                                <div class="text-xs text-gray-400">Expert</div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="text-4xl">🗄️</div>
+                            <div>
+                                <div class="font-medium">MySQL</div>
+                                <div class="text-xs text-gray-400">Advanced</div>
+                            </div>
+                            <div>
+                                <div class="font-medium">SQLite</div>
+                                <div class="text-xs text-gray-400">Advanced</div>
+                            </div>
+                            <div>
+                                <div class="font-medium">Django</div>
+                                <div class="text-xs text-gray-400">Intermediate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tools & Soft -->
+                <div class="glass p-8 rounded-3xl card-hover">
+                    <h3 class="font-semibold text-xl mb-6">Tools &amp; Soft Skills</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-5 py-2 bg-white/5 rounded-3xl text-sm">Git</span>
+                        <span class="px-5 py-2 bg-white/5 rounded-3xl text-sm">GitHub</span>
+                        <span class="px-5 py-2 bg-white/5 rounded-3xl text-sm">VS Code</span>
+                        <span class="px-5 py-2 bg-white/5 rounded-3xl text-sm">MS Office</span>
+                        <span class="px-5 py-2 bg-white/5 rounded-3xl text-sm">Communication</span>
+                        <span class="px-5 py-2 bg-white/5 rounded-3xl text-sm">Problem Solving</span>
+                        <span class="px-5 py-2 bg-white/5 rounded-3xl text-sm">Teamwork</span>
+                        <span class="px-5 py-2 bg-white/5 rounded-3xl text-sm">Quick Learner</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="section-header heading-font text-5xl font-bold mb-12">Professional Experience</h2>
+            
+            <div class="glass p-10 rounded-3xl max-w-4xl">
+                <div class="flex flex-col md:flex-row gap-6 md:items-center mb-8">
+                    <div class="flex-1">
+                        <div class="text-lime-400 font-medium">MIS Officer</div>
+                        <div class="text-2xl font-semibold">ROPES Organization (Children Believe Project)</div>
+                    </div>
+                    <div class="text-gray-400">1 Year • 2025 - 2026</div>
+                </div>
+                
+                <ul class="space-y-4 text-gray-300">
+                    <li class="flex gap-4">
+                        <span class="text-lime-400 mt-1">•</span>
+                        Collected, validated, and managed project data
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-lime-400 mt-1">•</span>
+                        Prepared accurate reports and documentation
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-lime-400 mt-1">•</span>
+                        Maintained project databases using SQL and Excel
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-lime-400 mt-1">•</span>
+                        Supported monitoring, evaluation &amp; team coordination
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-24 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="section-header heading-font text-5xl font-bold mb-12 text-center">Featured Project</h2>
+            
+            <div class="max-w-4xl mx-auto glass rounded-3xl overflow-hidden">
+                <div class="h-80 bg-gradient-to-br from-zinc-800 to-black flex items-center justify-center text-8xl">
+                    📚
+                </div>
+                <div class="p-10">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-3xl font-semibold">Student Seminar Management System</h3>
+                        <span class="px-4 py-2 bg-lime-400/10 text-lime-400 text-sm rounded-2xl">Django Project</span>
+                    </div>
+                    <p class="text-gray-300 mb-8">
+                        Web-based seminar management application with secure authentication, role-based access, 
+                        registration, scheduling, and admin dashboard.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-5 py-2 bg-white/5 rounded-3xl text-sm">Python</span>
+                        <span class="px-5 py-2 bg-white/5 rounded-3xl text-sm">Django</span>
+                        <span class="px-5 py-2 bg-white/5 rounded-3xl text-sm">SQLite</span>
+                        <span class="px-5 py-2 bg-white/5 rounded-3xl text-sm">HTML/CSS/JS</span>
+                    </div>
+                    
+                   <a href="https://github.com/SaiAravind23/Student-Seminar-Management-System-" target="_blank" ...
+                       class="inline-flex items-center gap-3 mt-10 text-lime-400 hover:text-lime-300 font-medium">
+                        View on GitHub 
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="section-header heading-font text-5xl font-bold mb-12">Education</h2>
+            
+            <div class="space-y-8">
+                <div class="glass p-8 rounded-3xl flex flex-col md:flex-row gap-8">
+                    <div class="md:w-48 flex-shrink-0">
+                        <div class="text-lime-400 font-medium">2025</div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-semibold text-xl">Master of Computer Applications (MCA)</div>
+                        <div class="text-gray-400">Mother Theresa Institute of Computer Applications • CGPA: 7.78</div>
+                    </div>
+                </div>
+                
+                <div class="glass p-8 rounded-3xl flex flex-col md:flex-row gap-8">
+                    <div class="md:w-48 flex-shrink-0">
+                        <div class="text-lime-400 font-medium">2023</div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-semibold text-xl">Bachelor of Commerce (Computer Applications &amp; Accounting)</div>
+                        <div class="text-gray-400">Mother Theresa Degree College • CGPA: 8.2</div>
+                    </div>
+                </div>
+                
+                <div class="glass p-8 rounded-3xl flex flex-col md:flex-row gap-8">
+                    <div class="md:w-48 flex-shrink-0">
+                        <div class="text-lime-400 font-medium">2020</div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-semibold text-xl">Intermediate (MEC)</div>
+                        <div class="text-gray-400">Mother Theresa Junior College • CGPA: 8.1</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+                
+                </div>
+                
+                <!-- Certifications -->
+                <div class="glass p-10 rounded-3xl">
+                    <h3 class="font-semibold text-2xl mb-8">Certifications</h3>
+                    <div class="space-y-8">
+                        <div class="flex gap-6">
+                            <div class="text-4xl">☕</div>
+                            <div>
+                                <div class="font-medium">Full Stack Java</div>
+                                <div class="text-sm text-gray-400">Core Java, Advanced Java, HTML, CSS</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="text-4xl">☁️</div>
+                            <div>
+                                <div class="font-medium">Salesforce Developer Virtual Internship</div>
+                                <div class="text-sm text-gray-400">SmartInterz</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-2xl mx-auto text-center mb-16">
+                <h2 class="section-header heading-font text-5xl font-bold">Let's Connect</h2>
+                <p class="text-gray-400 mt-4">"Passionate about building innovative software solutions and continuously learning emerging technologies."</p>
+            </div>
+            
+            <div class="glass max-w-2xl mx-auto p-12 rounded-3xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div>
+                        <a href="mailto:saiaravind22srinivasulu@gmail.com" 
+                           class="flex items-center gap-5 hover:text-lime-400 group">
+                            <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-2xl group-hover:bg-lime-400/10">✉️</div>
+                            <div class="text-left">
+                                <div class="text-sm text-gray-400">Email</div>
+                                <div class="font-medium">saiaravind22srinivasulu@gmail.com</div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div>
+                        <a href="tel:+919000156529" 
+                           class="flex items-center gap-5 hover:text-lime-400 group">
+                            <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-2xl group-hover:bg-lime-400/10">📞</div>
+                            <div class="text-left">
+                                <div class="text-sm text-gray-400">Phone</div>
+                                <div class="font-medium">+91 9000156529</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="my-12 border-t border-white/10"></div>
+                
+                <div class="flex justify-center gap-8 text-4xl">
+                    <a href="https://github.com/SaiAravind23" target="_blank" class="hover:text-lime-400"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/s-aravind-07a9b1249/" target="_blank" class="hover:text-lime-400"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center text-gray-500 text-sm">
+            © 2026 S. Aravind. Built with passion.
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script already included via CDN
+        
+        // Mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        
+        // Resume download (placeholder)
+        function downloadResume() {
+            alert("📄 Resume download started! (In a real portfolio, this would trigger the actual PDF download)");
+            // For real use:
+            // const link = document.createElement('a');
+            // link.href = 'path-to-your-resume.pdf';
+            // link.download = 'S_Aravind_Resume.pdf';
+            // link.click();
+        }
+        
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Keyboard shortcut for resume (Ctrl/Cmd + K)
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                downloadResume();
+            }
+        });
+        
+        console.log('%c✅ Portfolio ready! Premium black + lime theme applied.', 'color:#bef264; font-size:14px');
+    </script>
+</body>
+</html>
